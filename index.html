@@ -310,10 +310,10 @@
     <h1>Adedeji Adetoun</h1>
     <p class="role">I break applications on purpose, before real users do it by accident. Manual functional, exploratory, and negative testing across web applications, with a habit of writing bug reports developers can act on without asking a follow-up question.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num">55</div><div class="label">Test cases executed</div></div>
-      <div class="hero-stat"><div class="num">13</div><div class="label">Defects logged</div></div>
-      <div class="hero-stat"><div class="num">2</div><div class="label">Projects: solo &amp; team</div></div>
-      <div class="hero-stat"><div class="num">5</div><div class="label">High-severity finds</div></div>
+      <div class="hero-stat"><div class="num">85</div><div class="label">Test cases executed</div></div>
+      <div class="hero-stat"><div class="num">21</div><div class="label">Defects logged</div></div>
+      <div class="hero-stat"><div class="num">3</div><div class="label">Projects: UI, API &amp; team</div></div>
+      <div class="hero-stat"><div class="num">8</div><div class="label">High-severity finds</div></div>
     </div>
   </div>
 </header>
@@ -435,14 +435,14 @@
 
         <div class="ticket-heading">Defects I found (PIM module)</div>
 
-        <div class="ticket sev-medium">
-          <div class="ticket-head"><span class="ticket-id">PIM_BUG_001</span><span class="sev-chip medium">Medium / High priority</span></div>
+        <div class="ticket sev-high">
+          <div class="ticket-head"><span class="ticket-id">PIM_BUG_001</span><span class="sev-chip high">High</span></div>
           <p>Numeric characters are accepted in First/Middle/Last Name fields when onboarding an employee.</p>
           <p class="exp-act"><b>Expected:</b> Validation warning blocks numeric input in name fields. <b>Actual:</b> Value saves silently with no warning.</p>
         </div>
 
-        <div class="ticket sev-medium">
-          <div class="ticket-head"><span class="ticket-id">PIM_BUG_002</span><span class="sev-chip medium">Medium / High priority</span></div>
+        <div class="ticket sev-high">
+          <div class="ticket-head"><span class="ticket-id">PIM_BUG_002</span><span class="sev-chip high">High</span></div>
           <p>A pure special-character string in the First Name field is accepted and saved as a live employee profile.</p>
           <p class="exp-act"><b>Expected:</b> Field is rejected with an "invalid characters" error. <b>Actual:</b> A false "Successfully Saved" toast confirms the corrupted profile.</p>
         </div>
@@ -455,6 +455,66 @@
         </div>
       </div>
     </div>
+
+    <!-- ============ PROJECT 3: RESTFUL-BOOKER API ============ -->
+    <div class="project">
+      <div class="project-top">
+        <div class="badge-row">
+          <span class="badge solo">Solo Project</span>
+          <span class="badge">API Testing · Postman</span>
+        </div>
+        <h3 class="title">Restful-Booker API (Hotel Booking API)</h3>
+        <p class="meta">Base URL: <span class="mono">restful-booker.herokuapp.com</span> · Tool: Postman · Basis: written requirements doc, tested against auth, CRUD, and non-functional checks</p>
+      </div>
+      <div class="project-body">
+        <p class="narrative">Full functional API test coverage across authentication, booking creation, retrieval/filtering, full and partial updates, deletion, and non-functional checks (response time, headers). Every case was written against a formal requirements document before execution, not improvised against the API's actual behavior.</p>
+
+        <div class="ledger">
+          <div class="ledger-label"><span>30 test cases executed</span><span>80% pass rate</span></div>
+          <div class="bar">
+            <div class="pass" style="width:80%"></div>
+            <div class="fail" style="width:20%"></div>
+          </div>
+          <div class="bar-legend">
+            <span><span class="swatch pass"></span>24 passed</span>
+            <span><span class="swatch fail"></span>6 failed on real defects</span>
+          </div>
+        </div>
+
+        <div class="ticket-heading">Featured defects</div>
+
+        <div class="ticket sev-high">
+          <div class="ticket-head"><span class="ticket-id">BUG_001</span><span class="sev-chip high">High</span></div>
+          <p>POST /booking returns a raw 500 Internal Server Error when a required field is omitted, instead of a handled 400 response.</p>
+          <p class="exp-act"><b>Expected:</b> 400 Bad Request with a validation message. <b>Actual:</b> Unhandled server exception, suggesting the field is dereferenced server-side with no null check, a reliability risk beyond a simple validation gap.</p>
+        </div>
+
+        <div class="ticket sev-medium">
+          <div class="ticket-head"><span class="ticket-id">BUG_007</span><span class="sev-chip medium">Medium</span></div>
+          <p>GET /booking date-range filter returns an empty result set despite matching bookings existing in the system.</p>
+          <p class="exp-act"><b>Expected:</b> Bookings within the given checkin/checkout range are returned. <b>Actual:</b> Empty list every time; filtering logic appears non-functional.</p>
+        </div>
+
+        <div class="ticket sev-low">
+          <div class="ticket-head"><span class="ticket-id">BUG_004 / BUG_005</span><span class="sev-chip low">Low / Medium</span></div>
+          <p>POST /booking silently accepts negative prices and checkout dates earlier than checkin, with no business-logic validation.</p>
+          <p class="exp-act"><b>Expected:</b> Illogical or invalid business values are rejected. <b>Actual:</b> 200 OK on both, booking is created as-is.</p>
+        </div>
+
+        <div class="ticket-heading">Investigation, not just execution</div>
+        <div class="ticket sev-medium">
+          <div class="ticket-head"><span class="ticket-id">BUG_009 / BUG_010</span><span class="sev-chip medium">Investigated, closed</span></div>
+          <p>Six test cases initially returned unexpected 403 Forbidden errors on authenticated PUT/PATCH/DELETE requests, which first looked like a critical auth defect.</p>
+          <p class="exp-act"><b>Root cause:</b> traced to stale booking IDs and tokens carried over in a long session, caused by the API's automatic 10-minute data reset, not a product bug. Retested with freshly created bookings and tokens; all six passed cleanly. Logged and closed as false positives rather than left unexplained.</p>
+        </div>
+
+        <div class="recommendation">
+          <span class="k">Recommendation</span>
+          Prioritize BUG_001 as the one reliability-grade defect (unhandled 500 on invalid input). Input validation is broadly lenient across POST /booking and should be tightened for data type, required nested objects, and business logic before this pattern would be acceptable in a production system.
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
