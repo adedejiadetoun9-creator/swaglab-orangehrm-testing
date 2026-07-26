@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adedeji Adetoun | QA Portfolio</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="QA portfolio of Adedeji Adetoun: 85 test cases across e-commerce, an enterprise HR platform, and a REST API, with full test plans, test cases, and bug reports.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Adedeji Adetoun | QA Portfolio">
+<meta property="og:description" content="85 test cases, 21 defects logged, across e-commerce, enterprise HR, and API testing. Full test plans, test cases, and bug reports included.">
+<meta property="og:image" content="https://adedejiadetoun9-creator.github.io/swaglab-orangehrm-testing/og-image.png">
+<meta property="og:url" content="https://adedejiadetoun9-creator.github.io/swaglab-orangehrm-testing/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Adedeji Adetoun | QA Portfolio">
+<meta name="twitter:description" content="85 test cases, 21 defects logged, across e-commerce, enterprise HR, and API testing.">
+<meta name="twitter:image" content="https://adedejiadetoun9-creator.github.io/swaglab-orangehrm-testing/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -252,6 +263,45 @@
   }
   .recommendation .k{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--amber-soft); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
 
+  .doc-links{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:20px 0 4px;
+  }
+  .doc-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line-strong);
+    padding:7px 14px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .doc-link:hover{background:var(--ink); color:var(--paper);}
+
+  .evidence{
+    margin-top:12px;
+    border:1px solid var(--line-strong);
+    overflow:hidden;
+    background:#0e1116;
+  }
+  .evidence img{
+    width:100%;
+    display:block;
+  }
+  .evidence-caption{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--paper);
+    background:var(--ink);
+    padding:6px 12px;
+    border-top:1px solid rgba(245,242,234,0.15);
+  }
+
   /* ---------- SKILLS ---------- */
   .skills-grid{
     display:grid;
@@ -388,12 +438,25 @@
           <div class="ticket-head"><span class="ticket-id">BUG_003</span><span class="sev-chip high">High</span></div>
           <p>Sort dropdown ("Price: Low to High") does not reorder the product catalog.</p>
           <p class="exp-act"><b>Expected:</b> Catalog re-sorts ascending by price. <b>Actual:</b> Layout is unchanged; directly violates an acceptance criterion.</p>
+          <div class="evidence">
+            <img src="evidence/saucedemo-sort-before.jpg" alt="Sort dropdown open, Price low to high selected" loading="lazy">
+            <div class="evidence-caption">"Price (low to high)" selected in the sort dropdown</div>
+          </div>
+          <div class="evidence">
+            <img src="evidence/saucedemo-sort-after.jpg" alt="Catalog unchanged after sort selection" loading="lazy">
+            <div class="evidence-caption">Catalog order is unchanged, Backpack still precedes the cheaper Bike Light</div>
+          </div>
         </div>
 
         <div class="ticket sev-high">
           <div class="ticket-head"><span class="ticket-id">BUG_004</span><span class="sev-chip high">High</span></div>
           <p>"Remove" button on the cart page is unresponsive for a specific inventory item.</p>
           <p class="exp-act"><b>Expected:</b> Item is removed, badge count decreases. <b>Actual:</b> Click does nothing; item and count stay frozen.</p>
+        </div>
+
+        <div class="doc-links">
+          <a class="doc-link" href="docs/saucedemo/test-summary-report.pdf" target="_blank" rel="noopener">&#128196; Test Summary Report (PDF)</a>
+          <a class="doc-link" href="docs/saucedemo/bug-report.xlsx" target="_blank" rel="noopener">&#128202; Bug Report (XLSX)</a>
         </div>
 
         <div class="recommendation">
@@ -445,9 +508,19 @@
           <div class="ticket-head"><span class="ticket-id">PIM_BUG_002</span><span class="sev-chip high">High</span></div>
           <p>A pure special-character string in the First Name field is accepted and saved as a live employee profile.</p>
           <p class="exp-act"><b>Expected:</b> Field is rejected with an "invalid characters" error. <b>Actual:</b> A false "Successfully Saved" toast confirms the corrupted profile.</p>
+          <div class="evidence">
+            <img src="evidence/pim-special-char-name.jpg" alt="OrangeHRM PIM personal details showing special characters saved as first name" loading="lazy">
+            <div class="evidence-caption">Employee record saved with "$%^^$#@" as the live first name, PIM record #202</div>
+          </div>
         </div>
 
         <p class="narrative" style="margin-top:22px;">Across the full team, this pattern repeated in <span class="mono">My Info</span> and <span class="mono">Recruitment</span> too, four High-severity defects in total, all tracing back to the same missing centralized input-validation rule for name and date fields, rather than four unrelated bugs.</p>
+
+        <div class="doc-links">
+          <a class="doc-link" href="docs/xyzbank/test-plan.pdf" target="_blank" rel="noopener">&#128196; Test Plan (PDF)</a>
+          <a class="doc-link" href="docs/xyzbank/bug-report.pdf" target="_blank" rel="noopener">&#128196; Bug Report (PDF)</a>
+          <a class="doc-link" href="docs/xyzbank/test-case-defect-log.xlsx" target="_blank" rel="noopener">&#128202; Test Case &amp; Defect Log (XLSX)</a>
+        </div>
 
         <div class="recommendation">
           <span class="k">Team's release recommendation</span>
@@ -468,6 +541,11 @@
       </div>
       <div class="project-body">
         <p class="narrative">Full functional API test coverage across authentication, booking creation, retrieval/filtering, full and partial updates, deletion, and non-functional checks (response time, headers). Every case was written against a formal requirements document before execution, not improvised against the API's actual behavior.</p>
+
+        <div class="evidence">
+          <img src="evidence/restfulbooker-400-response.jpg" alt="Postman POST request to the booking endpoint with a JSON body" loading="lazy">
+          <div class="evidence-caption">POST /booking validation testing in Postman</div>
+        </div>
 
         <div class="ledger">
           <div class="ledger-label"><span>30 test cases executed</span><span>80% pass rate</span></div>
@@ -506,6 +584,17 @@
           <div class="ticket-head"><span class="ticket-id">BUG_009 / BUG_010</span><span class="sev-chip medium">Investigated, closed</span></div>
           <p>Six test cases initially returned unexpected 403 Forbidden errors on authenticated PUT/PATCH/DELETE requests, which first looked like a critical auth defect.</p>
           <p class="exp-act"><b>Root cause:</b> traced to stale booking IDs and tokens carried over in a long session, caused by the API's automatic 10-minute data reset, not a product bug. Retested with freshly created bookings and tokens; all six passed cleanly. Logged and closed as false positives rather than left unexplained.</p>
+          <div class="evidence">
+            <img src="evidence/restfulbooker-403-forbidden.jpg" alt="Postman PUT request returning 403 Forbidden with stale auth cookie" loading="lazy">
+            <div class="evidence-caption">PUT /booking/3892 returns 403 Forbidden using a stale session cookie, the trigger for the investigation</div>
+          </div>
+        </div>
+
+        <div class="doc-links">
+          <a class="doc-link" href="docs/restfulbooker/api-requirements.pdf" target="_blank" rel="noopener">&#128196; API Requirements (PDF)</a>
+          <a class="doc-link" href="docs/restfulbooker/test-summary-report.pdf" target="_blank" rel="noopener">&#128196; Test Summary Report (PDF)</a>
+          <a class="doc-link" href="docs/restfulbooker/test-cases.xlsx" target="_blank" rel="noopener">&#128202; Test Cases (XLSX)</a>
+          <a class="doc-link" href="docs/restfulbooker/bug-log.xlsx" target="_blank" rel="noopener">&#128202; Bug Log (XLSX)</a>
         </div>
 
         <div class="recommendation">
